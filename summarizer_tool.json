@@ -1,0 +1,32 @@
+[
+    {
+      "id": "search_summarizer",
+      "user_id": "52d99347-7b8d-4b4e-9922-3e004ff09a99",
+      "name": "Search Summarizer",
+      "content": "import requests\n\n\nclass Tools:\n    def __init__(self):\n        pass\n\n    # Use the brave search summarizer to pass the summary of the web search to the model\n    def get_summary(self, question: str) -> str:\n        API_KEY = \"{BRAVE_API_KEY}\"\n\n        # Brave Search API host\n        API_HOST = \"https://api.search.brave.com\"\n\n        # Brave Search API subpaths\n        API_PATH = {\n            \"web\": urljoin(API_HOST, \"res/v1/web/search\"),\n            \"summarizer_search\": urljoin(API_HOST, \"res/v1/summarizer/search\"),\n        }\n\n        API_HEADERS = {\n            \"web\": {\"X-Subscription-Token\": API_KEY, \"Api-Version\": \"2023-10-11\"},\n            \"summarizer\": {\n                \"X-Subscription-Token\": API_KEY,\n                \"Api-Version\": \"2024-04-23\",\n            },\n        }\n\n        # Create web search request params\n        API_PARAMS_WEB = {\n            \"q\": question,\n            \"summary\": 1,\n        }\n\n        response = requests.get(\n            API_PATH[\"web\"], headers=API_HEADERS[\"web\"], params=API_PARAMS_WEB\n        )\n        data = response.json()\n        summary_key = data.get(\"summarizer\", {}).get(\"key\")\n        summary_response = requests.get(\n            API_PATH[\"summarizer_search\"],\n            headers=API_HEADERS[\"summarizer\"],\n            params={\"key\": summary_key, \"entity_info\": 1},\n        )\n        summary_data = summary_response.json()\n        summary = summary_data.get(\"summary\")[0].get(\"data\")\n        return f\"{summary}\"\n",
+      "specs": [
+        {
+          "name": "get_summary",
+          "description": "",
+          "parameters": {
+            "properties": {
+              "question": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "question"
+            ],
+            "type": "object"
+          }
+        }
+      ],
+      "meta": {
+        "description": "Use Brave Search Summarizer to get summary of web search",
+        "manifest": {}
+      },
+      "access_control": null,
+      "updated_at": 1739352785,
+      "created_at": 1739352785
+    }
+  ]

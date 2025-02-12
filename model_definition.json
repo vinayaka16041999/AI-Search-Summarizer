@@ -1,0 +1,37 @@
+{
+    "id": "search-summary-ai",
+    "base_model_id": "deepseek-r1-distill-llama-70b",
+    "name": "Search Summary AI",
+    "meta": {
+      "profile_image_url": "/static/favicon.png",
+      "description": null,
+      "capabilities": {
+        "vision": true,
+        "usage": false,
+        "citations": true
+      },
+      "suggestion_prompts": [
+        {
+          "content": "Apple's market share by countries"
+        },
+        {
+          "content": "Cognine Technologies"
+        },
+        {
+          "content": "Winners of SuperBowl for last 5 years"
+        }
+      ],
+      "tags": [],
+      "toolIds": [
+        "search_summarizer"
+      ]
+    },
+    "params": {
+      "system": "Use the tools to get the web search summary and answer all of the user's question exactly as the output of the tools."
+    },
+    "user_id": "52d99347-7b8d-4b4e-9922-3e004ff09a99",
+    "access_control": null,
+    "is_active": true,
+    "updated_at": 1739352953,
+    "created_at": 1739352953
+  }
