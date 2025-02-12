@@ -1,5 +1,5 @@
 import requests
-
+from urllib.parse import urljoin
 
 class Tools:
     def __init__(self):
